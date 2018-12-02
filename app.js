@@ -56,12 +56,16 @@ function sendUserName() {
 }
 
 function sendContent() {
-    stompClient.send("/app/chat", {}, $("#content").val());
+    var content = $("#content");
+    stompClient.send("/app/chat", {}, content.val());
+    content.val('');
 }
 
 function showMessages(message) {
     // console.log(message)
-    $("#messages").append("<tr><td>" + message + "</td></tr>");
+    var message_element = $("#messages");
+    message_element.append("<tr><td>" + message + "</td></tr>");
+    message_element.scrollTop(message_element[0].scrollHeight);
 }
 
 $(function () {
