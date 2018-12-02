@@ -64,7 +64,7 @@ function sendContent() {
 function showMessages(message) {
     // console.log(message)
     var message_element = $("#messages");
-    message_element.append("<tr><td>" + message + "</td></tr>");
+    message_element.append('<div style = "word-wrap:break-word;">' + message + "<div>");
     message_element.scrollTop(message_element[0].scrollHeight);
 }
 
