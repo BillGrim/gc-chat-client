@@ -10,13 +10,14 @@
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
+    "dist:win32": "electron-builder -w",
     "build:all": "electron-builder -wml",
     "build:linux": "electron-builder -l",
     "build:mac": "electron-builder -m",
-    "build:windows": "electron-builder -w",
+    "build:windows": "electron-packager . gc-chat-client --platform=win32 --arch=x64 --out dist/ && electron-installer-windows --src dist/gc-chat-client-win32-x64 --dest dist/",
     "postinstall": "electron-builder install-app-deps",
-    "build:deb64": "electron-installer-debian --src dist/app-linux-x64/ --dest dist/installers/ --arch amd64"
+    "publish": "build --mac --linux --win -p always",
+    "release": "release-it"
   },
   "keywords": [
     "Electron",
@@ -28,20 +29,28 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^3.0.7",
-    "electron-builder": "latest"
+    "electron-builder": "latest",
+    "release-it": "^8.1.0"
   },
   "dependencies": {
     "jquery": "^3.3.1",
     "stompjs": "^2.3.3",
     "sockjs": "^0.3.19",
-    "rpmbuild": "^0.0.22"
+    "rpmbuild": "^0.0.22",
+    "electron-updater": "^4.0.0"
   },
   "build": {
     "appId": "GCChatClient",
     "mac": {
+      "publish": [
+        "github"
+      ],
       "target": "dmg"
     },
     "linux": {
+      "publish": [
+        "github"
+      ],
       "target": [
         "AppImage",
         "deb",
@@ -49,13 +58,26 @@
       ]
     },
     "win": {
+      "publish": [
+        "github"
+      ],
       "target": [
         {
-          "target": "portable",
-          "arch": "x64"
+          "target": "portable"
         }
       ]
     }
   },
-  "__npminstall_done": false
+  "__npminstall_done": false,
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "BillGrim",
+      "repo": "gc-chat-client"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BillGrim/gc-chat-client.git"
+  }
 }
