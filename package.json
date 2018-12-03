@@ -1,6 +1,6 @@
 {
   "name": "gc-chat-client",
-  "version": "1.0.0",
+  "version": "v0.0.1-alpha.1",
   "description": "GC Chat Client",
   "main": "main.js",
   "author": {
@@ -9,15 +9,12 @@
   },
   "scripts": {
     "start": "electron .",
-    "pack": "electron-builder --dir",
     "dist:win32": "electron-builder -w",
-    "build:all": "electron-builder -wml",
+    "build:all": "build -wml",
     "build:linux": "electron-builder -l",
     "build:mac": "electron-builder -m",
-    "build:windows": "electron-packager . gc-chat-client --platform=win32 --arch=x64 --out dist/ && electron-installer-windows --src dist/gc-chat-client-win32-x64 --dest dist/",
-    "postinstall": "electron-builder install-app-deps",
-    "publish": "build --mac --linux --win -p always",
-    "release": "release-it"
+    "build:windows": "build --win",
+    "publish": "build --mac --linux --win -p always"
   },
   "keywords": [
     "Electron",
@@ -54,7 +51,8 @@
       "target": [
         "AppImage",
         "deb",
-        "rpm"
+        "rpm",
+        "tar.gz"
       ]
     },
     "win": {
@@ -64,6 +62,12 @@
       "target": [
         {
           "target": "portable"
+        },
+        {
+          "target": "zip"
+        },
+        {
+          "target": "nsis"
         }
       ]
     }
